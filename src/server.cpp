@@ -46,7 +46,6 @@ Status RaftMessagesServiceImpl::RequestVote(ServerContext* context,
         debug("nonononononono \n ");
         return Status::OK;
     }
-    debug("yesyesyesyesyes \n ");
     int response0 = raft_node->on_vote_request(response, *request);
     if(response0 == 0){
         return Status::OK;

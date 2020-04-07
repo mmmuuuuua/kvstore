@@ -251,6 +251,7 @@ struct RaftNode {
     // Standard
     TermID current_term = default_term_cursor;
     NodeName vote_for = vote_for_none;
+    NodeName prevote_for = vote_for_none;
     std::vector<raft_messages::LogEntry> logs;
     std::string leader_name;
     struct Configuration * trans_conf = nullptr;
@@ -588,7 +589,7 @@ struct RaftNode {
             leader_name = request.name();
             invoke_callback(NUFT_CB_ELECTION_END, {this, &guard, ELE_SUC_OB});
         }
-        if (request.term() == current_term && (state == NodeState::Candidate || NodeState::PreCandidate)) {
+        if (request.term() == current_term && (state == NodeState::Candidate || state == NodeState::PreCandidate)) {
             // In election and a Leader has won. 
             debug_node("Become Follower: Receive AppendEntriesRequest/InstallSnapshotRequest from %s with term %llu. I lose election of my candidate term.\n", request.name().c_str(), request.term());
             become_follower(guard, request.term());
@@ -703,6 +704,11 @@ struct RaftNode {
     bool valid_seq(uint64_t seq, bool initial);
 
     KvServer* kv_server;
+
+    //prevote
+    void reset_peers_vote(std::lock_guard<std::mutex> & guard);
+    void do_pre_election(std::lock_guard<std::mutex> & guard);
+
     RaftNode(const std::string & addr,KvServer* kv_server_);
     RaftNode(const std::string & addr);
     RaftNode(const RaftNode &) = delete;

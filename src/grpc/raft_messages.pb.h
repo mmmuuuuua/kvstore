@@ -886,6 +886,13 @@ class RequestVoteRequest :
   bool initial() const;
   void set_initial(bool value);
 
+  // required bool is_prevote = 8;
+  bool has_is_prevote() const;
+  void clear_is_prevote();
+  static const int kIsPrevoteFieldNumber = 8;
+  bool is_prevote() const;
+  void set_is_prevote(bool value);
+
   // @@protoc_insertion_point(class_scope:raft_messages.RequestVoteRequest)
  private:
   class HasBitSetters;
@@ -903,6 +910,7 @@ class RequestVoteRequest :
   ::PROTOBUF_NAMESPACE_ID::uint64 time_;
   ::PROTOBUF_NAMESPACE_ID::uint64 seq_;
   bool initial_;
+  bool is_prevote_;
   friend struct ::TableStruct_raft_5fmessages_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2675,6 +2683,24 @@ inline void RequestVoteRequest::set_initial(bool value) {
   _has_bits_[0] |= 0x00000040u;
   initial_ = value;
   // @@protoc_insertion_point(field_set:raft_messages.RequestVoteRequest.initial)
+}
+
+// required bool is_prevote = 8;
+inline bool RequestVoteRequest::has_is_prevote() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void RequestVoteRequest::clear_is_prevote() {
+  is_prevote_ = false;
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline bool RequestVoteRequest::is_prevote() const {
+  // @@protoc_insertion_point(field_get:raft_messages.RequestVoteRequest.is_prevote)
+  return is_prevote_;
+}
+inline void RequestVoteRequest::set_is_prevote(bool value) {
+  _has_bits_[0] |= 0x00000080u;
+  is_prevote_ = value;
+  // @@protoc_insertion_point(field_set:raft_messages.RequestVoteRequest.is_prevote)
 }
 
 // -------------------------------------------------------------------

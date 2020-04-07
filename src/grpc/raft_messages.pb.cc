@@ -264,6 +264,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_raft_5fmessages_2eproto::offse
   PROTOBUF_FIELD_OFFSET(::raft_messages::RequestVoteRequest, time_),
   PROTOBUF_FIELD_OFFSET(::raft_messages::RequestVoteRequest, seq_),
   PROTOBUF_FIELD_OFFSET(::raft_messages::RequestVoteRequest, initial_),
+  PROTOBUF_FIELD_OFFSET(::raft_messages::RequestVoteRequest, is_prevote_),
   0,
   1,
   2,
@@ -271,6 +272,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_raft_5fmessages_2eproto::offse
   4,
   5,
   6,
+  7,
   PROTOBUF_FIELD_OFFSET(::raft_messages::RequestVoteResponse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::raft_messages::RequestVoteResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -361,12 +363,12 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, 13, sizeof(::raft_messages::LogEntry)},
   { 21, 35, sizeof(::raft_messages::AppendEntriesRequest)},
   { 44, 56, sizeof(::raft_messages::AppendEntriesResponse)},
-  { 63, 75, sizeof(::raft_messages::RequestVoteRequest)},
-  { 82, 92, sizeof(::raft_messages::RequestVoteResponse)},
-  { 97, 110, sizeof(::raft_messages::InstallSnapshotRequest)},
-  { 118, 130, sizeof(::raft_messages::InstallSnapshotResponse)},
-  { 137, 146, sizeof(::raft_messages::ConfRecord)},
-  { 150, 161, sizeof(::raft_messages::PersistRecord)},
+  { 63, 76, sizeof(::raft_messages::RequestVoteRequest)},
+  { 84, 94, sizeof(::raft_messages::RequestVoteResponse)},
+  { 99, 112, sizeof(::raft_messages::InstallSnapshotRequest)},
+  { 120, 132, sizeof(::raft_messages::InstallSnapshotResponse)},
+  { 139, 148, sizeof(::raft_messages::ConfRecord)},
+  { 152, 163, sizeof(::raft_messages::PersistRecord)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -395,43 +397,43 @@ const char descriptor_table_protodef_raft_5fmessages_2eproto[] =
   "dEntriesResponse\022\014\n\004name\030\001 \002(\t\022\014\n\004term\030\002"
   " \002(\004\022\017\n\007success\030\003 \002(\010\022\026\n\016last_log_index\030"
   "\004 \002(\003\022\025\n\rlast_log_term\030\005 \002(\004\022\014\n\004time\030\006 \002"
-  "(\004\022\013\n\003seq\030\007 \002(\004\"\213\001\n\022RequestVoteRequest\022\014"
+  "(\004\022\013\n\003seq\030\007 \002(\004\"\237\001\n\022RequestVoteRequest\022\014"
   "\n\004name\030\001 \002(\t\022\014\n\004term\030\002 \002(\004\022\026\n\016last_log_i"
   "ndex\030\003 \002(\003\022\025\n\rlast_log_term\030\004 \002(\004\022\014\n\004tim"
-  "e\030\005 \002(\004\022\013\n\003seq\030\006 \002(\004\022\017\n\007initial\030\007 \002(\010\"b\n"
-  "\023RequestVoteResponse\022\014\n\004name\030\001 \002(\t\022\014\n\004te"
-  "rm\030\002 \002(\004\022\024\n\014vote_granted\030\003 \002(\010\022\014\n\004time\030\004"
-  " \002(\004\022\013\n\003seq\030\005 \002(\004\"\247\001\n\026InstallSnapshotReq"
-  "uest\022\014\n\004term\030\001 \002(\004\022\014\n\004name\030\002 \002(\t\022\033\n\023last"
-  "_included_index\030\003 \002(\003\022\032\n\022last_included_t"
-  "erm\030\004 \002(\003\022\014\n\004data\030\006 \002(\014\022\014\n\004time\030\007 \002(\004\022\013\n"
-  "\003seq\030\010 \002(\004\022\017\n\007initial\030\t \002(\010\"\232\001\n\027InstallS"
-  "napshotResponse\022\014\n\004term\030\001 \002(\004\022\014\n\004name\030\002 "
-  "\002(\t\022\033\n\023last_included_index\030\003 \002(\003\022\032\n\022last"
-  "_included_term\030\004 \002(\003\022\017\n\007success\030\005 \002(\010\022\014\n"
-  "\004time\030\006 \002(\004\022\013\n\003seq\030\007 \002(\004\"I\n\nConfRecord\022\r"
-  "\n\005peers\030\001 \002(\t\022\r\n\005index\030\002 \002(\003\022\016\n\006index2\030\003"
-  " \002(\003\022\r\n\005state\030\004 \002(\003\"\251\001\n\rPersistRecord\022\014\n"
-  "\004term\030\001 \002(\004\022\014\n\004name\030\002 \002(\t\022\020\n\010vote_for\030\003 "
-  "\002(\t\022(\n\007entries\030\004 \003(\0132\027.raft_messages.Log"
-  "Entry\022.\n\013conf_record\030\005 \001(\0132\031.raft_messag"
-  "es.ConfRecord\022\020\n\010last_seq\030\006 \002(\0042\250\002\n\014Raft"
-  "Messages\022V\n\013RequestVote\022!.raft_messages."
-  "RequestVoteRequest\032\".raft_messages.Reque"
-  "stVoteResponse\"\000\022\\\n\rAppendEntries\022#.raft"
-  "_messages.AppendEntriesRequest\032$.raft_me"
-  "ssages.AppendEntriesResponse\"\000\022b\n\017Instal"
-  "lSnapshot\022%.raft_messages.InstallSnapsho"
-  "tRequest\032&.raft_messages.InstallSnapshot"
-  "Response\"\0002\272\002\n\022RaftStreamMessages\022Z\n\013Req"
-  "uestVote\022!.raft_messages.RequestVoteRequ"
-  "est\032\".raft_messages.RequestVoteResponse\""
-  "\000(\0010\001\022`\n\rAppendEntries\022#.raft_messages.A"
-  "ppendEntriesRequest\032$.raft_messages.Appe"
-  "ndEntriesResponse\"\000(\0010\001\022f\n\017InstallSnapsh"
-  "ot\022%.raft_messages.InstallSnapshotReques"
-  "t\032&.raft_messages.InstallSnapshotRespons"
-  "e\"\000(\0010\001"
+  "e\030\005 \002(\004\022\013\n\003seq\030\006 \002(\004\022\017\n\007initial\030\007 \002(\010\022\022\n"
+  "\nis_prevote\030\010 \002(\010\"b\n\023RequestVoteResponse"
+  "\022\014\n\004name\030\001 \002(\t\022\014\n\004term\030\002 \002(\004\022\024\n\014vote_gra"
+  "nted\030\003 \002(\010\022\014\n\004time\030\004 \002(\004\022\013\n\003seq\030\005 \002(\004\"\247\001"
+  "\n\026InstallSnapshotRequest\022\014\n\004term\030\001 \002(\004\022\014"
+  "\n\004name\030\002 \002(\t\022\033\n\023last_included_index\030\003 \002("
+  "\003\022\032\n\022last_included_term\030\004 \002(\003\022\014\n\004data\030\006 "
+  "\002(\014\022\014\n\004time\030\007 \002(\004\022\013\n\003seq\030\010 \002(\004\022\017\n\007initia"
+  "l\030\t \002(\010\"\232\001\n\027InstallSnapshotResponse\022\014\n\004t"
+  "erm\030\001 \002(\004\022\014\n\004name\030\002 \002(\t\022\033\n\023last_included"
+  "_index\030\003 \002(\003\022\032\n\022last_included_term\030\004 \002(\003"
+  "\022\017\n\007success\030\005 \002(\010\022\014\n\004time\030\006 \002(\004\022\013\n\003seq\030\007"
+  " \002(\004\"I\n\nConfRecord\022\r\n\005peers\030\001 \002(\t\022\r\n\005ind"
+  "ex\030\002 \002(\003\022\016\n\006index2\030\003 \002(\003\022\r\n\005state\030\004 \002(\003\""
+  "\251\001\n\rPersistRecord\022\014\n\004term\030\001 \002(\004\022\014\n\004name\030"
+  "\002 \002(\t\022\020\n\010vote_for\030\003 \002(\t\022(\n\007entries\030\004 \003(\013"
+  "2\027.raft_messages.LogEntry\022.\n\013conf_record"
+  "\030\005 \001(\0132\031.raft_messages.ConfRecord\022\020\n\010las"
+  "t_seq\030\006 \002(\0042\250\002\n\014RaftMessages\022V\n\013RequestV"
+  "ote\022!.raft_messages.RequestVoteRequest\032\""
+  ".raft_messages.RequestVoteResponse\"\000\022\\\n\r"
+  "AppendEntries\022#.raft_messages.AppendEntr"
+  "iesRequest\032$.raft_messages.AppendEntries"
+  "Response\"\000\022b\n\017InstallSnapshot\022%.raft_mes"
+  "sages.InstallSnapshotRequest\032&.raft_mess"
+  "ages.InstallSnapshotResponse\"\0002\272\002\n\022RaftS"
+  "treamMessages\022Z\n\013RequestVote\022!.raft_mess"
+  "ages.RequestVoteRequest\032\".raft_messages."
+  "RequestVoteResponse\"\000(\0010\001\022`\n\rAppendEntri"
+  "es\022#.raft_messages.AppendEntriesRequest\032"
+  "$.raft_messages.AppendEntriesResponse\"\000("
+  "\0010\001\022f\n\017InstallSnapshot\022%.raft_messages.I"
+  "nstallSnapshotRequest\032&.raft_messages.In"
+  "stallSnapshotResponse\"\000(\0010\001"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_raft_5fmessages_2eproto_deps[1] = {
 };
@@ -449,7 +451,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_raf
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_raft_5fmessages_2eproto_once;
 static bool descriptor_table_raft_5fmessages_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_raft_5fmessages_2eproto = {
-  &descriptor_table_raft_5fmessages_2eproto_initialized, descriptor_table_protodef_raft_5fmessages_2eproto, "raft_messages.proto", 1967,
+  &descriptor_table_raft_5fmessages_2eproto_initialized, descriptor_table_protodef_raft_5fmessages_2eproto, "raft_messages.proto", 1987,
   &descriptor_table_raft_5fmessages_2eproto_once, descriptor_table_raft_5fmessages_2eproto_sccs, descriptor_table_raft_5fmessages_2eproto_deps, 9, 0,
   schemas, file_default_instances, TableStruct_raft_5fmessages_2eproto::offsets,
   file_level_metadata_raft_5fmessages_2eproto, 9, file_level_enum_descriptors_raft_5fmessages_2eproto, file_level_service_descriptors_raft_5fmessages_2eproto,
@@ -2538,6 +2540,9 @@ class RequestVoteRequest::HasBitSetters {
   static void set_has_initial(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
+  static void set_has_is_prevote(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
 };
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -2548,6 +2553,7 @@ const int RequestVoteRequest::kLastLogTermFieldNumber;
 const int RequestVoteRequest::kTimeFieldNumber;
 const int RequestVoteRequest::kSeqFieldNumber;
 const int RequestVoteRequest::kInitialFieldNumber;
+const int RequestVoteRequest::kIsPrevoteFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RequestVoteRequest::RequestVoteRequest()
@@ -2565,8 +2571,8 @@ RequestVoteRequest::RequestVoteRequest(const RequestVoteRequest& from)
     name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   ::memcpy(&term_, &from.term_,
-    static_cast<size_t>(reinterpret_cast<char*>(&initial_) -
-    reinterpret_cast<char*>(&term_)) + sizeof(initial_));
+    static_cast<size_t>(reinterpret_cast<char*>(&is_prevote_) -
+    reinterpret_cast<char*>(&term_)) + sizeof(is_prevote_));
   // @@protoc_insertion_point(copy_constructor:raft_messages.RequestVoteRequest)
 }
 
@@ -2574,8 +2580,8 @@ void RequestVoteRequest::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_RequestVoteRequest_raft_5fmessages_2eproto.base);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&term_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&initial_) -
-      reinterpret_cast<char*>(&term_)) + sizeof(initial_));
+      reinterpret_cast<char*>(&is_prevote_) -
+      reinterpret_cast<char*>(&term_)) + sizeof(is_prevote_));
 }
 
 RequestVoteRequest::~RequestVoteRequest() {
@@ -2606,10 +2612,10 @@ void RequestVoteRequest::Clear() {
   if (cached_has_bits & 0x00000001u) {
     name_.ClearNonDefaultToEmptyNoArena();
   }
-  if (cached_has_bits & 0x0000007eu) {
+  if (cached_has_bits & 0x000000feu) {
     ::memset(&term_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&initial_) -
-        reinterpret_cast<char*>(&term_)) + sizeof(initial_));
+        reinterpret_cast<char*>(&is_prevote_) -
+        reinterpret_cast<char*>(&term_)) + sizeof(is_prevote_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
@@ -2676,6 +2682,14 @@ const char* RequestVoteRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
           HasBitSetters::set_has_initial(&has_bits);
           initial_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // required bool is_prevote = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
+          HasBitSetters::set_has_is_prevote(&has_bits);
+          is_prevote_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2803,6 +2817,19 @@ bool RequestVoteRequest::MergePartialFromCodedStream(
         break;
       }
 
+      // required bool is_prevote = 8;
+      case 8: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (64 & 0xFF)) {
+          HasBitSetters::set_has_is_prevote(&_has_bits_);
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &is_prevote_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -2871,6 +2898,11 @@ void RequestVoteRequest::SerializeWithCachedSizes(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBool(7, this->initial(), output);
   }
 
+  // required bool is_prevote = 8;
+  if (cached_has_bits & 0x00000080u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBool(8, this->is_prevote(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -2924,6 +2956,11 @@ void RequestVoteRequest::SerializeWithCachedSizes(
   // required bool initial = 7;
   if (cached_has_bits & 0x00000040u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->initial(), target);
+  }
+
+  // required bool is_prevote = 8;
+  if (cached_has_bits & 0x00000080u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(8, this->is_prevote(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2985,6 +3022,11 @@ size_t RequestVoteRequest::RequiredFieldsByteSizeFallback() const {
     total_size += 1 + 1;
   }
 
+  if (has_is_prevote()) {
+    // required bool is_prevote = 8;
+    total_size += 1 + 1;
+  }
+
   return total_size;
 }
 size_t RequestVoteRequest::ByteSizeLong() const {
@@ -2996,7 +3038,7 @@ size_t RequestVoteRequest::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x0000007f) ^ 0x0000007f) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x000000ff) ^ 0x000000ff) == 0) {  // All required fields are present.
     // required string name = 1;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -3028,6 +3070,9 @@ size_t RequestVoteRequest::ByteSizeLong() const {
         this->seq());
 
     // required bool initial = 7;
+    total_size += 1 + 1;
+
+    // required bool is_prevote = 8;
     total_size += 1 + 1;
 
   } else {
@@ -3065,7 +3110,7 @@ void RequestVoteRequest::MergeFrom(const RequestVoteRequest& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       _has_bits_[0] |= 0x00000001u;
       name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.name_);
@@ -3088,6 +3133,9 @@ void RequestVoteRequest::MergeFrom(const RequestVoteRequest& from) {
     if (cached_has_bits & 0x00000040u) {
       initial_ = from.initial_;
     }
+    if (cached_has_bits & 0x00000080u) {
+      is_prevote_ = from.is_prevote_;
+    }
     _has_bits_[0] |= cached_has_bits;
   }
 }
@@ -3107,7 +3155,7 @@ void RequestVoteRequest::CopyFrom(const RequestVoteRequest& from) {
 }
 
 bool RequestVoteRequest::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000007f) != 0x0000007f) return false;
+  if ((_has_bits_[0] & 0x000000ff) != 0x000000ff) return false;
   return true;
 }
 
@@ -3127,6 +3175,7 @@ void RequestVoteRequest::InternalSwap(RequestVoteRequest* other) {
   swap(time_, other->time_);
   swap(seq_, other->seq_);
   swap(initial_, other->initial_);
+  swap(is_prevote_, other->is_prevote_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RequestVoteRequest::GetMetadata() const {

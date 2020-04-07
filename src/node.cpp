@@ -9,6 +9,7 @@ RaftNode * make_raft_node(const std::string & addr) {
 RaftNode::RaftNode(const std::string & addr) : state(NodeState::NotRunning), name(addr) {
     current_term = default_term_cursor;
     vote_for = vote_for_none;
+    prevote_for = vote_for_none;
     leader_name = "";
     trans_conf = nullptr;
     persister = new Persister{this};
@@ -23,6 +24,7 @@ RaftNode::RaftNode(const std::string & addr) : state(NodeState::NotRunning), nam
     new_vote = 0;
     old_vote = 0;
     
+    kv_server = nullptr;
     // NOTICE In a streaming implementation, I need to first listen to some port, 
     // then create a client
     #if defined(USE_GRPC_STREAM)
@@ -51,6 +53,7 @@ RaftNode::RaftNode(const std::string & addr) : state(NodeState::NotRunning), nam
 RaftNode::RaftNode(const std::string & addr,KvServer* kv_server_) : state(NodeState::NotRunning), name(addr) {
     current_term = default_term_cursor;
     vote_for = vote_for_none;
+    prevote_for = vote_for_none;
     leader_name = "";
     trans_conf = nullptr;
     persister = new Persister{this};
@@ -160,7 +163,8 @@ void RaftNode::do_apply(std::lock_guard<std::mutex> & guard, bool from_snapshot)
         if(res != NUFT_OK){
             debug_node("Apply fail at %lld\n", i);
         }else{
-            kv_server->map_[(int)(i)].second.notify_one();
+            if(kv_server != NULL && (kv_server->map_).find((int)(i)) != (kv_server->map_).end())
+                (kv_server->map_[(int)(i)]).second.notify_one();
             last_applied = i;
         }
         delete applymsg;
@@ -197,7 +201,7 @@ void RaftNode::on_timer() {
             && (current_ms >= elect_timeout_due)
             ) { 
         // Start election(from a Follower), or restart a election(from a Candidate)
-        do_election(guard);
+        do_pre_election(guard);
         // In `do_election`, `leader_name` is set to "".
         if(state == NodeState::Follower){
             invoke_callback(NUFT_CB_ELECTION_START, {this, &guard, ELE_NEW});

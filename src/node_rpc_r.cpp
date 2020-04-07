@@ -2,7 +2,7 @@
 
 void RaftNode::reset_peers_vote(std::lock_guard<std::mutex> & guard){
     for(auto & pp: peers){
-        const NodePeer & peer = *(pp.second);
+        NodePeer & peer = *(pp.second);
         peer.voted_for_me = false;
     }
 }
@@ -10,7 +10,7 @@ void RaftNode::reset_peers_vote(std::lock_guard<std::mutex> & guard){
 void RaftNode::do_pre_election(std::lock_guard<std::mutex> & guard){
     switch_to(guard, NodeState::PreCandidate);
     
-    tmp_term = current_term + 1;
+    TermID tmp_term = current_term + 1;
     // NOTICE Now compute `vote_for` in `test_election` by counting `vote_for_me`
     // vote_got = 1; // Vote for myself
     vote_for = name;
@@ -105,10 +105,19 @@ int RaftNode::on_vote_request(raft_messages::RequestVoteResponse * response_ptr,
         // TODO An optimation from the Raft Paper Chapter 7 Issue 3: 
         // "removed servers can disrupt the cluster. These servers will not receive heartbeats, so they will time out and start new elections.
         // They will then send RequestVote RPCs with new term numbers, and this will cause the current leader to revert to follower state."
+
+        TermID tmp_term = current_term;
+        //become_follower must be here, out of if, because when start a new election, vote_request must be make old node's vote_for = vote_for_none
+        //but if is a prevote, current_term don't change
         become_follower(guard, request.term());
+        if(request.is_prevote() == false){    
+            leader_name = "";
+        }
+        else{
+            current_term = tmp_term;
+        }
         // We can't assume the sender has won the election, actually we don't know who wins, maybe no one has won yet.
         // So we can't set leader_name to request.name().
-        leader_name = "";
         reset_election_timeout();
     } else if (request.term() < current_term) {
         // Reject. A request of old term
@@ -137,10 +146,9 @@ int RaftNode::on_vote_request(raft_messages::RequestVoteResponse * response_ptr,
         debug_node("Out-of-ordered RequestVoteRequest\n");
         return -1;
     }
-    
-    leader_name = "";
     // if not preVote,Vote.
     if(request.is_prevote() == false){
+        leader_name = "";
         vote_for = request.name();     
     }
     response.set_vote_granted(true);

@@ -62,6 +62,7 @@ void RaftNode::do_append_entries(std::lock_guard<std::mutex> & guard, bool heart
 }
 
 int RaftNode::on_append_entries_request(raft_messages::AppendEntriesResponse * response_ptr, const raft_messages::AppendEntriesRequest & request) {
+    GUARD
     std::string peer_name = request.name();
     if((!is_running(guard)) || (!is_peer_receive_enabled(guard, peer_name))){
         #if !defined(_HIDE_NOEMPTY_REPEATED_APPENDENTRY_REQUEST) && !defined(_HIDE_PAUSED_NODE_NOTICE)
@@ -73,8 +74,6 @@ int RaftNode::on_append_entries_request(raft_messages::AppendEntriesResponse * r
         #endif
         return -1;
     }
-
-    GUARD
 
     if((uint64_t)request.time() < (uint64_t)start_timepoint){
         debug_node("Out-dated AppendEntriesRequest\n");
